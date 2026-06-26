@@ -25,8 +25,12 @@ function syncPlayUI(playing) {
   playOverlay.classList.toggle("hidden", playing);
 }
 
+/* — ensure media is loaded before any interaction — */
+video.load();
+
 /* — play / pause — */
 function togglePlay() {
+  if (video.readyState < 2) return; // not enough data yet
   video.paused ? video.play() : video.pause();
 }
 
@@ -42,7 +46,7 @@ video.addEventListener("click", togglePlay);
 
 /* — progress — */
 video.addEventListener("timeupdate", () => {
-  if (!video.duration) return;
+  if (!video.duration || isNaN(video.duration)) return;
   const pct = (video.currentTime / video.duration) * 100;
   progressFill.style.width        = pct + "%";
   progressThumb.style.left        = pct + "%";
@@ -55,6 +59,7 @@ video.addEventListener("loadedmetadata", () => {
 });
 
 progressWrap.addEventListener("click", (e) => {
+  if (!video.duration || isNaN(video.duration)) return;
   const rect = progressWrap.getBoundingClientRect();
   const pct  = (e.clientX - rect.left) / rect.width;
   video.currentTime = pct * video.duration;
