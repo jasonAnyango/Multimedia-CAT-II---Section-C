@@ -11,4 +11,4 @@ A promotional wildlife conservation webpage built for CAT II — Multimedia Appl
 | `script.js` | Custom video player logic |
 | `wildlife.mp4` | Video asset |
 
-> **Disclaimer:** This code was developed with AI assistance (Claude by Anthropic.
+> **Disclaimer:** This code was developed with AI assistance (Claude by Anthropic).
